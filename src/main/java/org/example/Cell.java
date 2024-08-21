@@ -13,7 +13,6 @@ public class Cell {
     }
 
     // set default constructor as dead
-
     public Cell() {
         this(false);
     }
@@ -34,10 +33,10 @@ public class Cell {
     public String toString() {
         if (isAlive) {
             // living cell
-            return "O";
+            return ".";
         } else {
             // dead cell
-            return "1";
+            return "*";
         }
     }
 }

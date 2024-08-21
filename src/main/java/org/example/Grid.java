@@ -11,7 +11,6 @@ public class Grid {
 
     // constructor to create board
     // can accept an arbitrary grid of cells
-
     public Grid(int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
@@ -33,14 +32,24 @@ public class Grid {
         return null;
     }
 
-    // count living neighbours
+    // Set the state of a specific cell
+    public void setCellState(int row, int column, boolean isAlive) {
+        if (row >= 0 && row < rows && column >= 0 && column < columns) {
+            cells[row][column].setAlive(isAlive);
+        }
+    }
 
+
+    // count living neighbours
     public int countAliveNeighbours(int row, int column) {
         int aliveNeighbours = 0;
 
         // loop through cells
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
+                // Skip the cell itself
+                if (i == 0 && j == 0) continue;
+
                 Cell neighbour = getCell((row), column);
                 if (neighbour != null && neighbour.isAlive()) {
                     aliveNeighbours++;
@@ -58,25 +67,37 @@ public class Grid {
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                int aliveNeighbours = countAliveNeighbours(i, j);
+                int aliveNeighbors = countAliveNeighbours(i, j);
                 boolean currentState = cells[i][j].isAlive();
+                boolean nextState;
 
 
-                /// apply game rules
+                //apply game rules
+                if (currentState && (aliveNeighbors < 2 || aliveNeighbors > 3)) {
+                    nextState = false; // Cell dies due to underpopulation or overpopulation
+                } else if (!currentState && aliveNeighbors == 3) {
+                    nextState = true; // Cell becomes alive by reproduction
+                } else {
+                    nextState = currentState; // Cell stays in its current state
+                }
+
+                nextGen[i][j] = new Cell(nextState);
             }
+        }
+
+        // Update the cells to the new generation
+        cells = nextGen;
 
         }
 
-    }
-
-    public void displayGrid() {
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                System.out.println(cells[i][j] + " ");
+        public void displayGrid() {
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
+                    System.out.println(cells[i][j] + " ");
+                }
+                System.out.println();
             }
-            System.out.println();
         }
-    }
 
 }
 
