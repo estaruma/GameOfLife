@@ -51,6 +51,33 @@ public class Grid {
         return aliveNeighbours;
     }
 
+    // update grid
+
+    public void update() {
+        Cell[][] nextGen = new Cell[rows][columns];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                int aliveNeighbours = countAliveNeighbours(i, j);
+                boolean currentState = cells[i][j].isAlive();
+
+
+                /// apply game rules
+            }
+
+        }
+
+    }
+
+    public void displayGrid() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                System.out.println(cells[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
 }
 
 
