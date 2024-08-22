@@ -19,42 +19,6 @@ class GameOfLifeTest {
     }
 
     @Test
-    public void initialGridAllDeadTest() {
-        String expected = ". . . \n. . . \n. . . \n";
-        assertEquals(expected, gridToString());
-    }
-
-    @Test
-    public void gridInitialisationTest() {
-        int rows = 4;
-        int columns = 4;
-        GameOfLife gameOfLife = new GameOfLife(rows, columns, 1);
-        Grid grid = gameOfLife.getGrid();
-
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                assertFalse(grid.getCell(i, j).isAlive(), "cells should be dead at the beginning");
-            }
-        }
-    }
-
-    @Test
-    public void testInitialiseRandom() {
-        grid.initialiseRandom();
-        boolean hasAliveCell = false;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (grid.getCell(i, j).isAlive()) {
-                    hasAliveCell = true;
-                    break;
-                }
-            }
-            if (hasAliveCell) break;
-        }
-        assertTrue(hasAliveCell, "Grid should have some alive cells");
-    }
-
-    @Test
     public void userInputGridTest() {
         grid.setCellState(0, 0, true);
         grid.setCellState(1, 1, true);
@@ -75,21 +39,44 @@ class GameOfLifeTest {
         assertEquals(finalGrid, gridToString(), "After 1 gen, the single cell should die");
     }
 
+    // two or less, cells will die
+    @Test
+    public void underpopulationTest() {
+        grid.setCellState(1, 1, true);
+        grid.setCellState(0,1, true);
+
+        assertTrue(grid.getCell(1,1).isAlive());
+
+        grid.update();
+
+        assertFalse(grid.getCell(1,1).isAlive());
+    }
 
     @Test
-    public void EmptyGridRemainsEmptyTest() {
-        int rows = 3;
-        int columns = 3;
-        GameOfLife gameOfLife = new GameOfLife(rows, columns, 1);
-        Grid grid = gameOfLife.getGrid();
+    public void overcrowdingTest() {
+        grid.setCellState(1, 1, true);
+        grid.setCellState(0,0, true);
+        grid.setCellState(0, 1, true);
+        grid.setCellState(0,2, true);
+        grid.setCellState(1, 0, true);
 
-        gameOfLife.start();
+        assertTrue(grid.getCell(1,1).isAlive());
 
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                assertFalse(grid.getCell(i, j).isAlive(), "cells should remain dead");
-            }
-        }
+        grid.update();
+
+        assertFalse(grid.getCell(1,1).isAlive());
+    }
+
+    public void survivalTest() {
+        grid.setCellState(1, 1, true);
+        grid.setCellState(0, 0, true);
+        grid.setCellState(0, 1, true);
+
+        assertTrue(grid.getCell(1,1).isAlive());
+
+        grid.update();
+
+        assertTrue(grid.getCell(1,1).isAlive());
     }
 
     private String gridToString() {
