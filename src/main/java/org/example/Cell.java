@@ -33,10 +33,10 @@ public class Cell {
     public String toString() {
         if (isAlive) {
             // living cell
-            return ".";
+            return "*";
         } else {
             // dead cell
-            return "*";
+            return ".";
         }
     }
 }

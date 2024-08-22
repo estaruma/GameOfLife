@@ -19,12 +19,8 @@ public class GameOfLife {
             grid.update();
         }
     }
-    public void initializeFromPattern(boolean[][] pattern) {
-        for (int i = 0; i < pattern.length; i++) {
-            for (int j = 0; j < pattern[i].length; j++) {
-                grid.setCellState(i, j, pattern[i][j]);
-            }
-        }
-    }
 
+    public Grid getGrid() {
+        return grid;
+    }
 }
