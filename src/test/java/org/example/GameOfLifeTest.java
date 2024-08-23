@@ -67,6 +67,7 @@ class GameOfLifeTest {
         assertFalse(grid.getCell(1,1).isAlive());
     }
 
+    @Test
     public void survivalTest() {
         grid.setCellState(1, 1, true);
         grid.setCellState(0, 0, true);
@@ -78,6 +79,7 @@ class GameOfLifeTest {
 
         assertTrue(grid.getCell(1,1).isAlive());
     }
+
 
     private String gridToString() {
         StringBuilder sb = new StringBuilder();

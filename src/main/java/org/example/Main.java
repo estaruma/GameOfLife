@@ -32,7 +32,6 @@ public class Main {
         if (initialiseRandom.equalsIgnoreCase("y")) {
             gameOfLife.getGrid().initialiseRandom();
             System.out.println("Randomly initialized grid:");
-            gameOfLife.getGrid().displayGrid();
         } else {
             scanner.nextLine();
 
@@ -43,14 +42,11 @@ public class Main {
                     gameOfLife.getGrid().setCellState(i, j, line.charAt(j) == '*');
                 }
             }
-
-            System.out.println("User input before rules: ");
-            gameOfLife.getGrid().displayGrid();
         }
 
         gameOfLife.start();
 
-        System.out.println("Final: " );
+        System.out.println("Final: " + generations);
         gameOfLife.getGrid().displayGrid();
 
         scanner.close();

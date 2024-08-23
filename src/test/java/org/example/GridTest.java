@@ -12,7 +12,7 @@ class GridTest {
     public void setUp() {
         int rows = 3;
         int columns = 3;
-        int generations = 1;
+        int generations = 2;
         gameOfLife = new GameOfLife(rows, columns, generations);
         grid = gameOfLife.getGrid();
     }
@@ -55,15 +55,11 @@ class GridTest {
 
     @Test
     public void EmptyGridRemainsEmptyTest() {
-        int rows = 3;
-        int columns = 3;
-        GameOfLife gameOfLife = new GameOfLife(rows, columns, 1);
-        Grid grid = gameOfLife.getGrid();
 
-        gameOfLife.start();
+        grid.update();
 
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
+        for (int i = 0; i < grid.getRows(); i++) {
+            for (int j = 0; j < grid.getColumns(); j++) {
                 assertFalse(grid.getCell(i, j).isAlive(), "cells should remain dead");
             }
         }
