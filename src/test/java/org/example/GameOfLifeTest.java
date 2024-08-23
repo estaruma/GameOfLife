@@ -67,6 +67,8 @@ class GameOfLifeTest {
         assertFalse(grid.getCell(1,1).isAlive());
     }
 
+
+
     @Test
     public void survivalTest() {
         grid.setCellState(1, 1, true);
@@ -74,6 +76,18 @@ class GameOfLifeTest {
         grid.setCellState(0, 1, true);
 
         assertTrue(grid.getCell(1,1).isAlive());
+
+        grid.update();
+
+        assertTrue(grid.getCell(1,1).isAlive());
+    }
+
+    @Test
+    public void deadCellWithThreeLiveNeighborsBecomesAlive() {
+        grid.setCellState(0, 0, true);
+        grid.setCellState(0, 1, true);
+        grid.setCellState(1, 0, true);
+        grid.setCellState(1, 1, false);
 
         grid.update();
 

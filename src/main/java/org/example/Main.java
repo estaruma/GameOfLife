@@ -46,9 +46,6 @@ public class Main {
 
         gameOfLife.start();
 
-        System.out.println("Final: " + generations);
-        gameOfLife.getGrid().displayGrid();
-
         scanner.close();
 
         }

@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Scanner;
+
 //Manages game, setup, execution and display
 public class GameOfLife {
 
@@ -11,10 +13,16 @@ public class GameOfLife {
         this.generations = generations;
     }
 
-    // initialise simulaion
     public void start() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("User input:");
+        grid.displayGrid();
+
+    // initialise simulaion
         for (int i = 0; i < generations; i++) {
-            System.out.println("Generation " + (i+1) + ":");
+            grid.update();
+            System.out.println("Generation " + (i + 1) + ":");
             grid.displayGrid();
             grid.update();
         }
